@@ -58,7 +58,7 @@ class Colors:
 class TRTDetectionNode(Node):
     
     def __init__(self) -> None:
-        super().__init__('trt_detection')
+        super().__init__('trt_detection_node')
         # Create a subscriber to the Image topic
         self.subscription = self.create_subscription(
             Image, 'image', self.listener_callback, 10)
@@ -125,7 +125,7 @@ class TRTDetectionNode(Node):
 
         detection_array = Detection2DArray()
         
-        for i in range(len(boxes))):
+        for i in range(len(boxes)):
             box = boxes[i]
             label = f"{self.model.classes[label_ids[i]]}: {probs[i]:.2f}"
             print("Object: " + str(i) + " " + label)
@@ -160,7 +160,7 @@ class TRTDetectionNode(Node):
                         1,  # font scale
                        color, 2)  # line type
         # Displaying the predictions
-        cv2.imshow('trt_object_detection', cv_image)
+        cv2.imshow('trt_yolov5', cv_image)
         # Publishing the results onto the the Detection2DArray vision_msgs format
         self.detection_publisher.publish(detection_array)
         
