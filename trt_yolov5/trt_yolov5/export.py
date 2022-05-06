@@ -26,7 +26,8 @@ def ONNX_to_TRT(onnx_model_path=None, trt_engine_path=None, fp16_mode=False, siz
         serialized_engine = builder.build_engine(network, config)
 
     with open(trt_engine_path, 'wb') as f:
-        f.write(serialized_engine)
+        f.write(serialized_engine.serialize())
+    
 
     print('TensorRT file in ' + trt_engine_path)
     print('============ONNX->TensorRT SUCCESS============')
