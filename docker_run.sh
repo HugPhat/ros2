@@ -1,1 +1,2 @@
+sudo xhost +si:localuser:root
 docker run --gpus all -it --rm --name test  --runtime nvidia -e DISPLAY=$DISPLAY --device="/dev/video0:/dev/video0" --network host -v /tmp/.X11-unix/:/tmp/.X11-unix/ yolov5ros2
