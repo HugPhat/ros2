@@ -141,9 +141,20 @@ RUN apt-get update
 RUN apt-get install -y cmake libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev
 RUN apt-get install -y vim
 
-RUN echo 'source ${ROS_ROOT}/setup.bash'
+# Copy code to src
+RUN '. ${ROS_ROOT}/setup.bash'
 COPY ./trt_yolov5 /workspace/src/trt_yolov5
+
+# streaming video
+WORKDIR /worspace/src 
+RUN git clone https://github.com/klintan/ros2_video_streamer.git && \
+        apt install -y python3-natsort && \
+        pip3 install gdown
+
 WORKDIR /workspace/
+# download video
+RUN gdown --id 1MsUSiMBZkEderVPjlbk_TRvy2RJibRZk -O video.mp4 
+
 COPY *.sh /workspace/
 #RUN rosdep install -i --from-path src --rosdistro eloquent -y
 

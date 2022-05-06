@@ -96,10 +96,10 @@ class TRTDetectionNode(Node):
         self.declare_parameter('msize', 4)
         msize = int((self.get_parameter('msize').value ))
         
-        print('loading model')
+        print('Loading model')
         self.model = self.build_engine(
             model_name=self.model_name, fp16=False, size= msize)
-
+        print('Start')
         # for rendering color
         self.colors = Colors()
         
@@ -118,6 +118,7 @@ class TRTDetectionNode(Node):
             model = trt_yolov5(model_path=trt_path, tensor_height=640, tensor_width=640)
             return model
         except:
+            print('Engine not found -> build engine from Onnx')
             ONNX_to_TRT(onnx_path, trt_path, fp16, size)
             model = trt_yolov5(model_path=trt_path,
                                tensor_height=640, tensor_width=640)

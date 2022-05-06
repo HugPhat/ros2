@@ -1,0 +1,1 @@
+ros2 run camera_simulator camera_simulator --type video --path /workspace/video.mp4 --ros-args -r image_topic:=image
