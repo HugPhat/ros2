@@ -143,6 +143,7 @@ RUN apt-get install -y cmake libblkid-dev e2fslibs-dev libboost-all-dev libaudit
 RUN echo 'source ${ROS_ROOT}/setup.bash'
 COPY ./trt_yolov5 /workspace/src/trt_yolov5
 WORKDIR /workspace/
+COPY *.sh /workspace/
 #RUN rosdep install -i --from-path src --rosdistro eloquent -y
 
 CMD ["bash"]
