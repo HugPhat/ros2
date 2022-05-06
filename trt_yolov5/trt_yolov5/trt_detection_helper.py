@@ -94,7 +94,7 @@ class TRTDetectionNode(Node):
         self.conf_thresh = float(self.get_parameter('conf').value)
         # max memory
         self.declare_parameter('msize', 4)
-        msize = float(self.get_parameter('msize').value)
+        msize = int(float(self.get_parameter('msize').value))
         
         print('loading model')
         self.model = self.build_engine(
