@@ -103,6 +103,8 @@ class TRTDetectionNode(Node):
         # for rendering color
         self.colors = Colors()
         
+        
+        
     def build_engine(self, model_name, fp16= False, size=8):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         # TensorRT 7 handling https://github.com/ultralytics/yolov5/issues/6012
