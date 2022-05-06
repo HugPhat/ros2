@@ -146,7 +146,7 @@ RUN apt-get install -y vim
 COPY ./trt_yolov5 /workspace/src/trt_yolov5
 
 # streaming video
-WORKDIR /worspace/src 
+WORKDIR /workspace/src 
 RUN git clone https://github.com/klintan/ros2_video_streamer.git && \
         apt install -y python3-natsort && \
         pip3 install gdown
