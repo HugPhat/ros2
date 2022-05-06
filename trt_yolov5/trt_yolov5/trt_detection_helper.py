@@ -60,8 +60,11 @@ class TRTDetectionNode(Node):
     def __init__(self) -> None:
         super().__init__('trt_detection_node')
         # Create a subscriber to the Image topic
+        self.declare_parameter('topic', "image")
+        topic = self.get_parameter('topic').value
         self.subscription = self.create_subscription(
-            Image, 'image', self.listener_callback, 10)
+            Image, topic, self.listener_callback, 10)
+        
         self.subscription  # prevent unused variable warning
         self.bridge = CvBridge()
 
@@ -77,14 +80,14 @@ class TRTDetectionNode(Node):
         
         # create a model parameter, by default the model is yolov5n
         self.declare_parameter('model', "yolov5n")
-        model_name = self.get_parameter('model')
+        model_name = self.get_parameter('model').value
         
         # iou threshold
         self.declare_parameter('iou', 0.4)
-        model_name = float(self.get_parameter('iou'))
+        model_name = float(self.get_parameter('iou').value)
         # confidence threshold
         self.declare_parameter('conf', 0.2)
-        model_name = float(self.get_parameter('conf'))
+        model_name = float(self.get_parameter('conf').value)
         
         self.model = self.build_engine(model_name=model_name, fp16=False, size=8)
 
