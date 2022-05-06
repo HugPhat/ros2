@@ -23,7 +23,7 @@ def ONNX_to_TRT(onnx_model_path=None, trt_engine_path=None, fp16_mode=False, siz
         config.set_flag(trt.BuilderFlag.FP16)
     with open(onnx_model_path, 'rb') as model:
         assert parser.parse(model.read())
-        serialized_engine = builder.build_serialized_network(network, config)
+        serialized_engine = builder.build_engine(network, config)
 
     with open(trt_engine_path, 'wb') as f:
         f.write(serialized_engine)
