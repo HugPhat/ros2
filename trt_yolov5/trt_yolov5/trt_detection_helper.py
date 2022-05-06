@@ -92,7 +92,7 @@ class TRTDetectionNode(Node):
         # confidence threshold
         self.declare_parameter('conf', 0.2)
         self.conf_thresh = float(self.get_parameter('conf').value)
-        
+        print('loading model')
         self.model = self.build_engine(model_name=self.model_name, fp16=False, size=8)
 
         # for rendering color
@@ -105,8 +105,8 @@ class TRTDetectionNode(Node):
             opset = 12
         else:  # TensorRT >= 8
             opset = 13
-        onnx_path = os.path.join(dir_path, '..', f'{model_name}_{opset}.onnx')
-        trt_path = os.path.join(dir_path, '../..', f'{model_name}_{opset}.trt')
+        onnx_path = os.path.join(self.base_dir, 'src/trt_yolov5/models', f'{model_name}_{opset}.onnx')
+        trt_path = os.path.join(self.base_dir, 'src/trt_yolov5/models', f'{model_name}_{opset}.trt')
         try:
             model = trt_yolov5(model_path=trt_path, tensor_height=640, tensor_width=640)
             return model
