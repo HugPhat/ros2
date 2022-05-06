@@ -1,6 +1,6 @@
 
 import rclpy
-from trt_yolov5.trt_detect_helper import TRTDetectionNode
+from trt_yolov5.trt_detection_helper import TRTDetectionNode
 
 
 def main(args=None):
