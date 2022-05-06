@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvcr.io/ nvidia/l4t-base:r32.4.3
+ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.4.3
 FROM ${BASE_IMAGE}
 
 ARG ROS_PKG=ros_base
@@ -82,7 +82,6 @@ COPY ./packages/ros_entrypoint.sh /ros_entrypoint.sh
 RUN echo 'source ${ROS_ROOT}/setup.bash' >> /root/.bashrc 
 RUN chmod +x /ros_entrypoint.sh
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash"]
 WORKDIR /
 
 #
