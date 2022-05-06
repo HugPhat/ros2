@@ -140,7 +140,7 @@ RUN pip3 install pycuda --verbose
 RUN apt-get update
 RUN apt-get install -y cmake libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev
 
-RUN 'source ${ROS_ROOT}/setup.bash'
+RUN echo 'source ${ROS_ROOT}/setup.bash'
 COPY ./trt_yolov5 /workspace/src
 WORKDIR /workspace/
 #RUN rosdep install -i --from-path src --rosdistro eloquent -y
