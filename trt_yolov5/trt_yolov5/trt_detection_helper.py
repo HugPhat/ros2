@@ -136,7 +136,7 @@ class TRTDetectionNode(Node):
         self.timer.start()
         label_ids, probs, boxes = self.model.predict(image, self.conf_thresh, self.iou_thresh, [])
         interval = self.timer.end()
-        print('Time: {:.2f}s, Detect Objects: {:d}.'.format(interval, label_ids.shape[0]))
+        print('Time: {:.2f}s, Detect Objects: {:d}.'.format(interval, len(label_ids)))
 
         detection_array = Detection2DArray()
         

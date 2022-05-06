@@ -150,7 +150,7 @@ class yolov5_base:
         result_confidences = []
         result_boxes = []
         for i in indexes:
-            if isinstance(i, list):
+            if isinstance(i, np.ndarray):
                 i = i[0]
             result_confidences.append(confidences[i])
             result_class_ids.append(class_ids[i])
