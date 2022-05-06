@@ -123,29 +123,20 @@ class yolov5_base:
         x_factor = image_width / input_tensor_width
         y_factor = image_height / input_tensor_height
 
-        for row in (output_data):
-            #row = output_data[r]
-            #print(row)
-            
-            confidence = row[4]
-            classes_scores = row[5:]
-            _, _, _, max_indx = cv2.minMaxLoc(classes_scores)
-            class_id = max_indx[1]
-            if confidence >= conf_thresh \
-                and (class_id in accepted_classes or accepted_classes == []):
-                    
-                if (classes_scores[class_id] >= conf_thresh):
-                    confidences.append(float(confidence))
-                    class_ids.append(class_id)
-                    x, y, w, h = row[0].item(), row[1].item(), row[2].item(), row[3].item()
-                    left = int((x - 0.5 * w) * x_factor)
-                    top = int((y - 0.5 * h) * y_factor)
-                    width = int(w * x_factor)
-                    height = int(h * y_factor)
-                    box = np.array([left, top, width, height], dtype=int)
-                    boxes.append(box)
-
+        confidences = output_data[:, 4]
+        accepted_conf_idx = confidences > conf_thresh
+        x, y, w, h = output_data[accepted_conf_idx, 0], output_data[accepted_conf_idx,
+                                                                    1], output_data[accepted_conf_idx, 2], output_data[accepted_conf_idx, 3]
+        left = ((x - 0.5 * w) * x_factor).reshape(1, -1)
+        top = ((y - 0.5 * h) * y_factor).reshape(1, -1)
+        right = (left + (w * x_factor)).reshape(1, -1)
+        bottom = (top + (h * y_factor)).reshape(1, -1)
+        class_ids = np.argmax(output_data[accepted_conf_idx, 5:], axis=1)
+        confidences = confidences[accepted_conf_idx]
+        boxes = np.concatenate([left, top, right, bottom], axis=0).astype('int').T
+        
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, conf_thresh, iou_thresh)
+        
         result_class_ids = []
         result_confidences = []
         result_boxes = []
