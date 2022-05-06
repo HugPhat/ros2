@@ -1,1 +1,1 @@
-docker run --gpus all -it --privileged --rm --name test yolov5ros2
+docker run --gpus all -it --rm --name test yolov5ros2
