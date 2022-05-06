@@ -1,1 +1,1 @@
-colcon build --packages-select trt_yolov5
+colcon build --packages-select trt_yolov5 camera_simulator
