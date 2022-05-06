@@ -92,8 +92,13 @@ class TRTDetectionNode(Node):
         # confidence threshold
         self.declare_parameter('conf', 0.2)
         self.conf_thresh = float(self.get_parameter('conf').value)
+        # max memory
+        self.declare_parameter('msize', 4)
+        msize = float(self.get_parameter('msize').value)
+        
         print('loading model')
-        self.model = self.build_engine(model_name=self.model_name, fp16=False, size=8)
+        self.model = self.build_engine(
+            model_name=self.model_name, fp16=False, size= msize)
 
         # for rendering color
         self.colors = Colors()
