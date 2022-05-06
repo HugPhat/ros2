@@ -139,7 +139,7 @@ RUN pip3 install pycuda --verbose
 
 RUN apt-get update
 RUN apt-get install -y cmake libblkid-dev e2fslibs-dev libboost-all-dev libaudit-dev
-RUN apt-get install vim
+RUN apt-get install -y vim
 
 RUN echo 'source ${ROS_ROOT}/setup.bash'
 COPY ./trt_yolov5 /workspace/src/trt_yolov5
