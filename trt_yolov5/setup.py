@@ -23,4 +23,6 @@ setup(
             'trt_detector = trt_yolov5.trt_detection:main',
         ],
     },
+    package_data={'': ['*.onnx']},
+    include_package_data=True,
 )

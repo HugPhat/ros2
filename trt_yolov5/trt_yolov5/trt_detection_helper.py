@@ -78,18 +78,22 @@ class TRTDetectionNode(Node):
         
         self.timer = Timer()
         
+        # base dir
+        self.declare_parameter('base_dir', "/workspace")
+        self.base_dir = self.get_parameter('base_dir').value
+        
         # create a model parameter, by default the model is yolov5n
         self.declare_parameter('model', "yolov5n")
-        model_name = self.get_parameter('model').value
+        self.model_name = self.get_parameter('model').value
         
         # iou threshold
         self.declare_parameter('iou', 0.4)
-        model_name = float(self.get_parameter('iou').value)
+        self.iou_thresh = float(self.get_parameter('iou').value)
         # confidence threshold
         self.declare_parameter('conf', 0.2)
-        model_name = float(self.get_parameter('conf').value)
+        self.conf_thresh = float(self.get_parameter('conf').value)
         
-        self.model = self.build_engine(model_name=model_name, fp16=False, size=8)
+        self.model = self.build_engine(model_name=self.model_name, fp16=False, size=8)
 
         # for rendering color
         self.colors = Colors()
